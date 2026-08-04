@@ -13,7 +13,7 @@ from pathlib import Path
 import streamlit as st
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).parent / ".env")
 
 # Thêm project root vào sys.path để import các task từ src/
 PROJECT_ROOT = Path(__file__).parent
@@ -125,10 +125,10 @@ if query:
                 sources = response.get("sources", [])
 
             except NotImplementedError:
-                answer = "⚠️ **Task 10 chưa được implement.** Hãy hoàn thành `src/task10_generation.py` để kết nối pipeline vào UI!"
+                answer = "[!] **Task 10 chưa được implement.** Hãy hoàn thành `src/task10_generation.py` để kết nối pipeline vào UI!"
                 sources = []
             except Exception as e:
-                answer = f"❌ **Lỗi khi chạy RAG Pipeline:** {e}"
+                answer = f"[X] **Lỗi khi chạy RAG Pipeline:** {e}"
                 sources = []
 
             st.markdown(answer)

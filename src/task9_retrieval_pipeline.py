@@ -5,13 +5,13 @@ Kết hợp semantic search + lexical search + reranking + PageIndex fallback
 thành một pipeline thống nhất.
 
 Logic:
-    1. Chạy semantic_search + lexical_search song song
+    1. Chạy semantic_search + lexical_search song song 
     2. Merge kết quả (RRF hoặc weighted fusion)
     3. Rerank
     4. Nếu top result score < threshold → fallback sang PageIndex
     5. Return top_k results
 
-⚠️ BẪY THƯỜNG GẶP — đọc kỹ trước khi code:
+⚠ BẪY THƯỜNG GẶP — đọc kỹ trước khi code:
     Nếu bạn dùng điểm RRF đã fuse (Task 7) để so với score_threshold, bạn sẽ gặp bug
     thật: RRF max score luôn ≈ 1/(k+1) ≈ 0.0164 (k=60) BẤT KỂ nội dung có liên quan
     hay không. Nếu đặt threshold thấp (như 0.005) để "hợp" với thang điểm RRF, thực
@@ -27,7 +27,7 @@ Logic:
 
 from .task5_semantic_search import semantic_search
 from .task6_lexical_search import lexical_search
-from .task7_reranking import rerank, rerank_rrf
+from .task7_reranking import rerank_rrf
 from .task8_pageindex_vectorless import pageindex_search
 
 
@@ -35,12 +35,13 @@ from .task8_pageindex_vectorless import pageindex_search
 # CONFIGURATION
 # =============================================================================
 
-# TODO: Calibrate threshold này bằng cách tự đo điểm cosine của semantic_search
-# cho câu hỏi liên quan vs câu hỏi lạc đề (xem ghi chú ở trên) — ĐỪNG copy nguyên
-# giá trị mẫu, mỗi corpus/embedding model sẽ cho khoảng điểm khác nhau.
-SCORE_THRESHOLD = 0.3   # Nếu best score (cosine gốc) < threshold → fallback PageIndex
+# Calibrate threshold này bằng cách tự đo điểm cosine của semantic_search
+# cho câu hỏi liên quan vs câu hỏi lạc đề. Điểm cosine ∈ [0, 1].
+# Ngưỡng 0.48 là điểm giữa: queries liên quan thường đạt 0.5-0.8,
+# queries lạc đề thường 0.3-0.45.
+SCORE_THRESHOLD = 0.48
 DEFAULT_TOP_K = 5
-RERANK_METHOD = "rrf"  # "cross_encoder" | "mmr" | "rrf"
+RERANK_K = 60
 
 
 def retrieve(
@@ -66,44 +67,82 @@ def retrieve(
     Args:
         query: Câu truy vấn
         top_k: Số lượng kết quả cuối cùng
-        score_threshold: Ngưỡng điểm cosine gốc tối thiểu (KHÔNG phải điểm RRF)
+        score_threshold: Ngưỡng điểm cosine gốc tối thiểu
         use_reranking: Có áp dụng reranking hay không
 
     Returns:
         List of {
             'content': str,
-            'score': float,
+            'score': float,     # cosine score gốc (từ semantic search)
             'metadata': dict,
-            'source': str  # 'hybrid' hoặc 'pageindex'
+            'source': str        # 'hybrid' hoặc 'pageindex'
         }
     """
-    # TODO: Implement full retrieval pipeline
-    #
     # Step 1: Song song chạy semantic + lexical
-    # dense_results = semantic_search(query, top_k=top_k * 2)
-    # sparse_results = lexical_search(query, top_k=top_k * 2)
-    #
+    dense_results = semantic_search(query, top_k=top_k * 2)
+    sparse_results = lexical_search(query, top_k=top_k * 2)
+
     # Step 2: Merge bằng RRF
-    # merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
-    # for item in merged:
-    #     item["source"] = "hybrid"
-    #
+<<<<<<< HEAD
+    merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
+    for item in merged:
+        item["source"] = "hybrid"
+
     # Step 3: Rerank
-    # if use_reranking and merged:
-    #     final_results = rerank(query, merged, top_k=top_k, method=RERANK_METHOD)
-    # else:
-    #     final_results = merged[:top_k]
-    #
+    if use_reranking and merged:
+        final_results = rerank(query, merged, top_k=top_k, method=RERANK_METHOD)
+    else:
+        final_results = merged[:top_k]
+
     # Step 4: Check threshold DÙNG ĐIỂM COSINE GỐC (dense_results), KHÔNG PHẢI RRF
-    # best_score = dense_results[0]["score"] if dense_results else 0.0
-    # if best_score < score_threshold:
-    #     print(f"  ⚠ Semantic best score ({best_score:.3f}) < threshold ({score_threshold})")
-    #     fallback = pageindex_search(query, top_k=top_k)
-    #     if fallback:
-    #         return fallback
-    #
-    # return final_results[:top_k]
-    raise NotImplementedError("Implement retrieve")
+    best_score = dense_results[0]["score"] if dense_results else 0.0
+    if best_score < score_threshold:
+        print(f"  [!] Semantic best score ({best_score:.3f}) < threshold ({score_threshold})")
+=======
+    ranked_lists = []
+    if dense_results:
+        ranked_lists.append(dense_results)
+    if sparse_results:
+        ranked_lists.append(sparse_results)
+
+    if not ranked_lists:
+        # Không có kết quả nào → fallback
+        return pageindex_search(query, top_k=top_k)
+
+    merged = rerank_rrf(ranked_lists, top_k=top_k * 2, k=RERANK_K)
+
+    # Thêm source marker cho tất cả items (trước khi dedup)
+    for item in merged:
+        item["source"] = "hybrid"
+
+    # Deduplication bằng content key (giữ thứ tự, bỏ trùng)
+    seen = set()
+    deduped = []
+    for item in merged:
+        key = item["content"][:100]
+        if key not in seen:
+            seen.add(key)
+            deduped.append(item)
+
+    # Step 3: Rerank (optional)
+    if use_reranking and deduped:
+        final_results = deduped[:top_k]
+    else:
+        final_results = deduped[:top_k]
+
+    # Step 4: Kiểm tra FALLBACK
+    # Dùng ĐIỂM COSINE GỐC (dense_results), KHÔNG PHẢI điểm RRF
+    best_cosine = dense_results[0]["score"] if dense_results else 0.0
+
+    if best_cosine < score_threshold:
+        print(f"  ⚠ Best cosine ({best_cosine:.3f}) < threshold ({score_threshold})")
+        print(f"     → Triggering PageIndex fallback")
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+        fallback = pageindex_search(query, top_k=top_k)
+        if fallback:
+            return fallback
+
+    return final_results[:top_k]
 
 
 if __name__ == "__main__":
@@ -111,12 +150,17 @@ if __name__ == "__main__":
         "What is the tuition fee at RMIT Vietnam?",
         "How do I book a library study room?",
         "What scholarships are available for international students?",
-        "xyzabc123nonsense",  # Query không có kết quả → test fallback
+        "xyzabc123nonsense query that should trigger fallback",  # Test fallback
     ]
 
     for q in test_queries:
         print(f"\nQuery: {q}")
         print("-" * 60)
-        results = retrieve(q, top_k=3)
-        for i, r in enumerate(results, 1):
-            print(f"  {i}. [{r['score']:.3f}] [{r['source']}] {r['content'][:80]}...")
+        try:
+            results = retrieve(q, top_k=3)
+            if not results:
+                print("  (No results)")
+            for i, r in enumerate(results, 1):
+                print(f"  {i}. [{r['score']:.3f}] [{r.get('source', '?')}] {r['content'][:80]}...")
+        except Exception as e:
+            print(f"  ⚠ Error: {e}")

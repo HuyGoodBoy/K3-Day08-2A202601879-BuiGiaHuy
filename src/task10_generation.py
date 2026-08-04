@@ -14,9 +14,7 @@ Base URL: "https://openrouter.ai/api/v1", dùng chung interface với OpenAI SDK
 """
 
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from pathlib import Path
 
 from .task9_retrieval_pipeline import retrieve
 
@@ -183,13 +181,20 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
     try:
         from openai import OpenAI
 
-        client = OpenAI(
-            api_key=api_key,
-            base_url="https://openrouter.ai/api/v1",
-        )
+        api_key = os.getenv("OPENAI_API_KEY")
+        base_url = None
+
+        if not api_key or not api_key.startswith("sk-"):
+            api_key = os.getenv("OPENROUTER_API_KEY")
+            base_url = "https://openrouter.ai/api/v1"
+
+        if not api_key:
+            raise ValueError("No valid API key found")
+
+        client = OpenAI(api_key=api_key, base_url=base_url)
 
         response = client.chat.completions.create(
-            model=LLM_MODEL,
+            model=LLM_MODEL.replace("openai/", ""),
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_message},

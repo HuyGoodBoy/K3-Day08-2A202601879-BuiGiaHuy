@@ -1,17 +1,92 @@
 [
   {
-    "question": "Học phí hàng năm của chương trình Business tại RMIT Vietnam là bao nhiêu?",
-    "expected_answer": "Khoảng 375.840.000 VND mỗi năm (tùy chương trình cụ thể).",
-    "expected_context": "Trang Tuition Fees, mục Undergraduate Programs"
+    "question": "Học phí hàng năm của chương trình Bachelor Degree tại RMIT Vietnam là bao nhiêu?",
+    "expected_answer": "Học phí năm học 2024-2025: 75,000,000 - 95,000,000 VND mỗi năm, tùy theo chương trình học cụ thể.",
+    "expected_context": ["tuition-fees-policy.md"]
   },
   {
-    "question": "Học phí được thanh toán theo hình thức nào?",
-    "expected_answer": "Thanh toán theo từng học kỳ, tính theo từng môn học đã đăng ký.",
-    "expected_context": "Trang Tuition Fees, mục Payment Structure"
+    "question": "Học phí cho chương trình Master Degree là bao nhiêu và thanh toán như thế nào?",
+    "expected_answer": "Học phí Master: 90,000,000 - 120,000,000 VND tổng cộng, thanh toán theo credit/từng môn học.",
+    "expected_context": ["tuition-fees-policy.md"]
   },
   {
-    "question": "Trường có cung cấp ký túc xá trong khuôn viên không?",
-    "expected_answer": "Không — trường không cung cấp chỗ ở trong khuôn viên, nhưng có đội ngũ hỗ trợ sinh viên tìm chỗ ở gần trường.",
-    "expected_context": "Trang Accommodation Services"
+    "question": "Lịch thanh toán học phí cho năm học mới là khi nào?",
+    "expected_answer": "Học kỳ 1: trước ngày 15 tháng 8 (60% học phí năm). Học kỳ 2: trước ngày 15 tháng 12 (40% còn lại).",
+    "expected_context": ["tuition-fees-policy.md"]
+  },
+  {
+    "question": "Phương thức thanh toán học phí nào được chấp nhận?",
+    "expected_answer": "Thanh toán trực tiếp tại văn phòng tài chính, chuyển khoản ngân hàng Vietcombank, hoặc qua cổng thanh toán trực tuyến (Visa, Mastercard, JCB).",
+    "expected_context": ["tuition-fees-policy.md"]
+  },
+  {
+    "question": "Chính sách hoàn tiền khi hủy đăng ký như thế nào?",
+    "expected_answer": "Hủy 2 tuần trước: hoàn 80%. Hủy 1 tuần trước: hoàn 50%. Hủy sau tuần đầu: không hoàn tiền.",
+    "expected_context": ["tuition-fees-policy.md"]
+  },
+  {
+    "question": "Điều kiện và giá trị học bổng Academic Excellence là gì?",
+    "expected_answer": "Yêu cầu GPA >= 8.5/10, giá trị: miễn 50% học phí năm học tiếp theo, 50 suất mỗi năm.",
+    "expected_context": ["scholarship-policy.md"]
+  },
+  {
+    "question": "Quy trình và thời hạn nộp đơn xin học bổng như thế nào?",
+    "expected_answer": "Nộp online qua Student Portal. Thời hạn: 1/6 - 31/7 hàng năm. Hội đồng họp tháng 8, kết quả thông báo qua email sinh viên.",
+    "expected_context": ["scholarship-policy.md"]
+  },
+  {
+    "question": "Yêu cầu duy trì học bổng sau khi được nhận là gì?",
+    "expected_answer": "GPA phải >= 7.5/10 mỗi học kỳ, không vi phạm quy chế học thuật, tham gia hoạt động trường khi được yêu cầu.",
+    "expected_context": ["scholarship-policy.md"]
+  },
+  {
+    "question": "Các loại học bổng nào dành cho sinh viên RMIT?",
+    "expected_answer": "Gồm 4 loại: Academic Excellence (50% học phí), Financial Support (30-70% học phí), Merit-based (10-30 triệu VND), International Student (25-100% học phí).",
+    "expected_context": ["scholarship-policy.md"]
+  },
+  {
+    "question": "Chi phí ký túc xá trong khuôn viên RMIT Saigon South là bao nhiêu?",
+    "expected_answer": "Single: 8,500,000 VND/tháng, Double: 5,500,000 VND/tháng, Quadruple: 4,000,000 VND/tháng. Đã bao gồm điện, nước, wifi, giặt.",
+    "expected_context": ["accommodation-guide.md"]
+  },
+  {
+    "question": "Quy trình đăng ký ký túc xá như thế nào?",
+    "expected_answer": "Đăng ký online từ 1/5 - 30/6 hàng năm, nộp hồ sơ, đóng cọc 1 tháng tiền thuê, phân phòng 25-30/8.",
+    "expected_context": ["accommodation-guide.md"]
+  },
+  {
+    "question": "Hạn đăng ký học phần cho sinh viên năm nhất là khi nào?",
+    "expected_answer": "Sinh viên năm 1 đăng ký từ ngày 16-20/8/2024. Thời gian Add/Drop: 21-25/8/2024.",
+    "expected_context": ["course-registration-guide.md"]
+  },
+  {
+    "question": "Số lượng môn học tối thiểu và tối đa mỗi học kỳ là bao nhiêu?",
+    "expected_answer": "Tối thiểu: 3 môn/học kỳ. Tối đa: 5 môn/học kỳ (cần phê duyệt).",
+    "expected_context": ["course-registration-guide.md"]
+  },
+  {
+    "question": "Làm sao để đặt phòng học nhóm ở thư viện RMIT?",
+    "expected_answer": "Đặt qua library portal. Phòng học nhóm có tối đa 6 sinh viên, trang bị bảng trắng và màn hình, giới hạn 2 giờ/lần đặt.",
+    "expected_context": ["article_02_Library-Services-and-Study-Spaces-at-RMIT.md"]
+  },
+  {
+    "question": "Giờ mở cửa thư viện RMIT Saigon South như thế nào?",
+    "expected_answer": "Thứ 2-6: 7:30 sáng - 10:00 tối. Thứ 7: 8:00 sáng - 5:00 tối. Chủ nhật: 10:00 sáng - 5:00 tối. Mùa thi được gia hạn đến nửa đêm.",
+    "expected_context": ["article_02_Library-Services-and-Study-Spaces-at-RMIT.md"]
+  },
+  {
+    "question": "Chính sách hoàn tiền khi drop môn học sau khi đã đăng ký là gì?",
+    "expected_answer": "Trước tuần 3: hoàn 100%. Tuần 3-6: hoàn 50%. Sau tuần 6: không hoàn, ghi điểm W.",
+    "expected_context": ["course-registration-guide.md"]
+  },
+  {
+    "question": "Học bổng Financial Support yêu cầu những gì và giá trị bao nhiêu?",
+    "expected_answer": "Dành cho sinh viên gặp khó khăn tài chính, yêu cầu giấy xác nhận thu nhập, giá trị miễn 30-70% học phí.",
+    "expected_context": ["scholarship-policy.md"]
+  },
+  {
+    "question": "Dịch vụ hỗ trợ sinh viên nào được cung cấp tại RMIT?",
+    "expected_answer": "Hỗ trợ chỗ ở, tư vấn tâm lý, dịch vụ nghề nghiệp, hỗ trợ học tập, hoạt động ngoại khóa.",
+    "expected_context": ["article_03_Student-Support-Services-Wellbeing-and-Counselling.md"]
   }
 ]
