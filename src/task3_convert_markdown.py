@@ -5,7 +5,7 @@ Su dung pypdf cho PDF, docx2txt cho DOCX, va json cho news articles.
 """
 
 import json
-from pathlib import Path
+from pathlib import Path 
 
 try:
     from pypdf import PdfReader
