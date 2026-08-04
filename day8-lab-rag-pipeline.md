@@ -117,11 +117,11 @@ Chia nhỏ các công đoạn dữ liệu và kiểm thử chuyên sâu:
 ---
 
 ### 🔹 Checkpoint 4: Pipeline Hoàn Chỉnh & Generation — Task 9..10 (1:20 – 1:45)
-* 👑 **Role 1 (Team Leader & RAG Architect)**: Kiểm tra toàn bộ mã nguồn bài cá nhân, chạy `pytest tests/test_individual.py` để xác nhận thành viên đạt đủ điểm bài cá nhân.
+* 👑 **Role 1 (Team Leader & RAG Architect)**: Kiểm tra toàn bộ mã nguồn Pipeline Kỹ Thuật (Task 1-10), chạy `pytest tests/test_individual.py` để xác nhận cả nhóm đạt đủ điểm.
 * ⚙️ **Role 2 (Data & Pipeline Specialist)**: Hoàn thiện **Task 9** (`src/task9_retrieval_pipeline.py`) — Nối chuỗi Semantic + BM25 + RRF + PageIndex Fallback khi điểm Cosine $< 0.48$.
 * 🎨 **Role 3 (Frontend & Chatbot Dev)**: Hoàn thiện **Task 10** (`src/task10_generation.py`) — Áp dụng kỹ thuật Reordering (`front + back[::-1]`) và gọi LLM sinh câu trả lời có trích dẫn nguồn.
 * 📊 **Role 4 / Role 5 / Role 6 (Evaluation & QA Engineer)**: Rà soát định dạng trích dẫn nguồn (citation format) trong câu trả lời từ LLM.
-* ✅ **Tiêu chí hoàn thành (Pass Criteria)**: Chạy `pytest tests/test_individual.py` đạt **35/35 test passed** (Hoàn thành 50 điểm cá nhân) (`CP4 Passed`).
+* ✅ **Tiêu chí hoàn thành (Pass Criteria)**: Chạy `pytest tests/test_individual.py` đạt **35/35 test passed** (Hoàn thành 50 điểm Pipeline Kỹ Thuật) (`CP4 Passed`).
 
 ---
 
@@ -155,7 +155,7 @@ không cần thêm slot review riêng.
 | **CP1** 🟦 | 0:10–0:35 (25m) | Có $\ge 3$ PDF trong `legal/`, $\ge 5$ JSON trong `news/` và convert sang `.md` | `python -m src.task3_convert_markdown` |
 | **CP2** 🟩 | 0:35–1:00 (25m) | Cắt đoạn văn bản, lưu ChromaDB, chạy thử Semantic & BM25 | `python -m src.task4_chunking_indexing` |
 | **CP3** 🟩 | 1:00–1:20 (20m) | Viết thuật toán RRF Rerank gộp thứ hạng & tích hợp PageIndex | `python -m src.task7_reranking` |
-| **CP4** 🟩 | 1:20–1:45 (25m) | **Mốc cá nhân 50đ**: Chạy Pytest đạt 35/35 PASSED | `python -m pytest tests/test_individual.py -v` |
+| **CP4** 🟩 | 1:20–1:45 (25m) | **Mốc Pipeline Kỹ Thuật 50đ**: Chạy Pytest đạt 35/35 PASSED | `python -m pytest tests/test_individual.py -v` |
 | **CP5** 🟧 | 1:45–2:15 (30m) | **Mốc bài nhóm 50đ**: Chạy Chatbot Streamlit + Đánh giá RAGAS | `streamlit run app.py` |
 | **CP6** 🟦 | 2:15–3:00 (45m) | **Thuyết trình Live Demo các nhóm (45 phút)** & Push code GitHub | `git push origin main` |
 
@@ -233,7 +233,7 @@ không cần thêm slot review riêng.
   - **Tại sao phải Reorder?**: Theo nghiên cứu *Lost in the Middle (Liu et al. 2023)*, LLM chú ý rất mạnh vào thông tin nằm ở **đầu** và **cuối** prompt, nhưng ngó lơ thông tin nằm ở **giữa**. Xếp đoạn quan trọng nhất vào đầu và cuối giúp LLM không bỏ sót dữ liệu.
   - **Tại sao phải ép Citation?**: Trích dẫn nguồn giúp kiểm chứng câu trả lời, minh bạch thông tin và ngăn chặn AI bịa đặt.
 - 🛠️ **Cách làm**: Chạy `python -m src.task10_generation` (từ thư mục gốc repo, không cd vào src/).
-- 🎯 **KIỂM TRA HOÀN THÀNH BÀI CÁ NHÂN**: Chạy lệnh `pytest tests/test_individual.py -v`. Khi màn hình báo **`35 passed`** là bạn đã đạt **50/50 điểm cá nhân**!
+- 🎯 **KIỂM TRA HOÀN THÀNH PIPELINE KỸ THUẬT (Task 1-10)**: Chạy lệnh `pytest tests/test_individual.py -v`. Khi màn hình báo **`35 passed`** là cả nhóm đã đạt **50/50 điểm Pipeline Kỹ Thuật**!
 
 ---
 

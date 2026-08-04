@@ -2,7 +2,7 @@
 
 ## Mục Tiêu
 
-Sau khi hoàn thành bài cá nhân, nhóm ngồi lại để xây dựng **1 trong 2 sản phẩm**:
+Sau khi cả nhóm hoàn thành **Pipeline Kỹ Thuật (Task 1-10)**, cùng xây dựng **1 trong 2 sản phẩm** sau:
 
 ---
 
@@ -59,7 +59,7 @@ Xem code mẫu (DeepEval/RAGAS/TruLens) chi tiết trong `README.md` gốc mục
 
 ## Yêu Cầu Chung
 
-1. **Tích hợp pipeline** từ bài cá nhân của các thành viên
+1. **Tích hợp pipeline** Task 1-10 mà cả nhóm đã xây dựng
 2. **Demo hoạt động được** trong buổi trình bày (chạy local hoặc deploy)
 3. **Evaluation pipeline** chạy được và có báo cáo kết quả
 4. **Code push lên repository** chung của nhóm
