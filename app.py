@@ -31,11 +31,209 @@ st.set_page_config(
 )
 
 # =============================================================================
+# STYLE — "General Intelligence Company" editorial design system
+# (warm parchment canvas, serif headings, hairline mist borders, signal-blue accent)
+# =============================================================================
+
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+        --color-parchment: #fefffc;
+        --color-paper: #ffffff;
+        --color-linen: #f9faf7;
+        --color-graphite: #2c2c2c;
+        --color-charcoal: #444141;
+        --color-ash: #646464;
+        --color-fog: #b4b8b4;
+        --color-mist: #dee2de;
+        --color-twilight: #282834;
+        --color-dusk: #1f1f29;
+        --color-signal-blue: #41a1cf;
+        --color-cerulean: #0081c0;
+        --font-serif: 'Fraunces', Georgia, serif;
+        --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    html, body, [class*="css"] {
+        font-family: var(--font-sans);
+        color: var(--color-charcoal);
+    }
+
+    .stApp {
+        background: var(--color-parchment);
+    }
+
+    /* ---- Hide default chrome clutter ---- */
+    #MainMenu, footer { visibility: hidden; }
+    header[data-testid="stHeader"] { background: transparent; }
+
+    /* ---- Hero banner (stands in for the atmospheric illustration) ---- */
+    .gic-hero {
+        background: linear-gradient(135deg, #0081c0 0%, #1f6fa8 55%, #1f1f29 100%);
+        border-radius: 24px;
+        padding: 48px 56px;
+        margin: 8px 0 32px 0;
+        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 2px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 5px;
+    }
+    .gic-hero .eyebrow {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.75);
+        margin-bottom: 12px;
+    }
+    .gic-hero h1 {
+        font-family: var(--font-serif) !important;
+        font-weight: 400 !important;
+        font-size: 48px !important;
+        line-height: 1.1 !important;
+        letter-spacing: -0.02em;
+        color: #ffffff !important;
+        margin: 0 0 12px 0 !important;
+    }
+    .gic-hero p {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgba(255,255,255,0.85);
+        max-width: 640px;
+        margin: 0;
+    }
+
+    /* ---- Headings ---- */
+    h1, h2, h3 {
+        font-family: var(--font-serif) !important;
+        font-weight: 400 !important;
+        letter-spacing: -0.02em;
+        color: var(--color-graphite) !important;
+    }
+    h2 { font-size: 27px !important; }
+    h3 { font-size: 20px !important; }
+
+    /* ---- Sidebar ---- */
+    section[data-testid="stSidebar"] {
+        background: var(--color-paper);
+        border-right: 1px solid var(--color-mist);
+    }
+    section[data-testid="stSidebar"] .block-container {
+        padding-top: 32px;
+    }
+    section[data-testid="stSidebar"] h1 {
+        font-family: var(--font-serif) !important;
+        font-size: 27px !important;
+        color: var(--color-graphite) !important;
+    }
+    section[data-testid="stSidebar"] h3 {
+        font-family: var(--font-sans) !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-ash) !important;
+    }
+    section[data-testid="stSidebar"] hr {
+        border-color: var(--color-mist);
+        margin: 20px 0;
+    }
+    section[data-testid="stSidebar"] .stCaption, section[data-testid="stSidebar"] small {
+        color: var(--color-ash) !important;
+    }
+
+    /* ---- Buttons: outlined ghost style, Signal Blue on hover ---- */
+    .stButton > button {
+        background: var(--color-linen);
+        border: 1px solid var(--color-mist);
+        border-radius: 8px;
+        color: var(--color-charcoal);
+        font-family: var(--font-sans);
+        font-weight: 500;
+        font-size: 14px;
+        padding: 8px 14px;
+        text-align: left;
+        box-shadow: none;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .stButton > button:hover {
+        border-color: var(--color-signal-blue);
+        color: var(--color-signal-blue);
+        background: var(--color-linen);
+    }
+    .stButton > button:focus:not(:active) {
+        border-color: var(--color-signal-blue);
+        color: var(--color-signal-blue);
+    }
+
+    /* ---- Slider (signal blue accent) ---- */
+    div[data-testid="stSlider"] [role="slider"] {
+        background-color: var(--color-signal-blue) !important;
+        border-color: var(--color-signal-blue) !important;
+    }
+    div[data-baseweb="slider"] div[style*="background-color: rgb(255, 75, 75)"] {
+        background-color: var(--color-signal-blue) !important;
+    }
+
+    /* ---- Chat messages: white cards with hairline mist border ---- */
+    div[data-testid="stChatMessage"] {
+        background: var(--color-paper);
+        border: 1px solid var(--color-mist);
+        border-radius: 12px;
+        padding: 4px 8px;
+        margin-bottom: 12px;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 1px 0px;
+    }
+
+    /* ---- Chat input: flat, bottom-border only (paper-form feel) ---- */
+    div[data-testid="stChatInput"] {
+        background: var(--color-linen);
+        border: none;
+        border-bottom: 1px solid var(--color-charcoal);
+        border-radius: 4px 4px 0 0;
+    }
+    div[data-testid="stChatInput"] textarea {
+        color: var(--color-charcoal);
+        font-family: var(--font-sans);
+    }
+
+    /* ---- Expander: diagram-card treatment for sources ---- */
+    div[data-testid="stExpander"] {
+        border: 1px solid var(--color-mist) !important;
+        border-radius: 16px !important;
+        background: rgba(255,255,255,0.7);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 8px 0px;
+        overflow: hidden;
+    }
+    div[data-testid="stExpander"] summary {
+        font-family: var(--font-sans);
+        font-weight: 500;
+        color: var(--color-graphite);
+    }
+
+    /* ---- Dividers ---- */
+    hr {
+        border-color: var(--color-mist) !important;
+    }
+
+    /* ---- Caption text ---- */
+    .stCaption, [data-testid="stCaptionContainer"] {
+        color: var(--color-ash) !important;
+        font-family: var(--font-sans);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# =============================================================================
 # SIDEBAR — INFO & SETTINGS
 # =============================================================================
 
 with st.sidebar:
-    st.title("🎓 University Services RAG")
+    st.title("🎓 University RAG")
     st.caption("Trợ lý hỏi đáp về dịch vụ và chính sách đại học (học phí, học bổng, ký túc xá, thư viện)")
 
     st.divider()
@@ -57,7 +255,7 @@ with st.sidebar:
     top_k = st.slider("Số chunks retrieval (top_k)", 3, 10, 5)
 
     st.divider()
-    st.caption("**Kiến trúc hệ thống:**")
+    st.caption("**Kiến trúc hệ thống**")
     st.caption("Hybrid Retrieval (Semantic + BM25) → RRF Rerank → PageIndex Fallback → LLM Generation có Citation")
 
 # =============================================================================
@@ -70,11 +268,20 @@ if "pending_query" not in st.session_state:
     st.session_state.pending_query = None
 
 # =============================================================================
-# MAIN CHAT AREA
+# HERO
 # =============================================================================
 
-st.title("🎓 University Services RAG Chatbot")
-st.caption("Hệ thống hỏi đáp thông tin dịch vụ đại học (Học phí, Học bổng, Ký túc xá, Thư viện)")
+st.markdown(
+    """
+    <div class="gic-hero">
+        <div class="eyebrow">RAG · Retrieval-Augmented Generation</div>
+        <h1>University Services Assistant</h1>
+        <p>Hỏi đáp thông tin dịch vụ đại học — học phí, học bổng, ký túc xá, thư viện —
+        với trích dẫn nguồn rõ ràng từ tài liệu chính thức.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Hiển thị lịch sử chat
 for msg in st.session_state.messages:
