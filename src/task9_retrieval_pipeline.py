@@ -5,7 +5,7 @@ Kết hợp semantic search + lexical search + reranking + PageIndex fallback
 thành một pipeline thống nhất.
 
 Logic:
-    1. Chạy semantic_search + lexical_search song song
+    1. Chạy semantic_search + lexical_search song song 
     2. Merge kết quả (RRF hoặc weighted fusion)
     3. Rerank
     4. Nếu top result score < threshold → fallback sang PageIndex
