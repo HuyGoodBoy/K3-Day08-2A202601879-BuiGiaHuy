@@ -20,13 +20,19 @@ from pathlib import Path
 import numpy as np
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Load corpus from chroma_db metadata or data/standardized/
 CORPUS: list[dict] = []
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
 STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
 
 # Lazy-built corpus
 _corpus: list[dict] = []
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
 _bm25_index = None
 
@@ -71,6 +77,7 @@ def build_bm25_index(corpus: list[dict] = None):
         corpus: List of {'content': str, 'metadata': dict}
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
     from rank_bm25 import BM25Okapi
 
     global _bm25_index, CORPUS
@@ -80,6 +87,8 @@ def build_bm25_index(corpus: list[dict] = None):
     _bm25_index = BM25Okapi(tokenized_corpus, k1=1.5, b=0.75)
     return _bm25_index
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     global _bm25_index, _corpus
 
     if corpus is None:
@@ -96,6 +105,9 @@ def build_bm25_index(corpus: list[dict] = None):
     tokenized_corpus = [doc["content"].lower().split() for doc in corpus]
     _bm25_index = BM25Okapi(tokenized_corpus)
     print(f"  OK: BM25 index built: {len(corpus)} documents")
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
 
 
@@ -116,8 +128,11 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
         Sorted by score descending.
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
     if _bm25_index is None or not CORPUS:
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     global _bm25_index, _corpus
 
     # Lazy load
@@ -126,12 +141,16 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
         build_bm25_index(corpus)
 
     if _bm25_index is None or not _corpus:
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
         return []
 
     tokenized_query = query.lower().split()
     scores = _bm25_index.get_scores(tokenized_query)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     top_indices = np.argsort(scores)[::-1][:top_k]
 
@@ -144,6 +163,8 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
                 "metadata": CORPUS[idx]["metadata"]
             })
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     # Get indices sorted by score descending
     indexed_scores = list(enumerate(scores))
     indexed_scores.sort(key=lambda x: x[1], reverse=True)
@@ -158,6 +179,9 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
             "metadata": _corpus[idx]["metadata"],
         })
 
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     return results
 

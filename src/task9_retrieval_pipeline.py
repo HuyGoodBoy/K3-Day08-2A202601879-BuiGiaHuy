@@ -84,6 +84,7 @@ def retrieve(
 
     # Step 2: Merge bằng RRF
 <<<<<<< HEAD
+<<<<<<< HEAD
     merged = rerank_rrf([dense_results, sparse_results], top_k=top_k * 2)
     for item in merged:
         item["source"] = "hybrid"
@@ -99,6 +100,8 @@ def retrieve(
     if best_score < score_threshold:
         print(f"  [!] Semantic best score ({best_score:.3f}) < threshold ({score_threshold})")
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     ranked_lists = []
     if dense_results:
         ranked_lists.append(dense_results)
@@ -137,6 +140,9 @@ def retrieve(
     if best_cosine < score_threshold:
         print(f"  ⚠ Best cosine ({best_cosine:.3f}) < threshold ({score_threshold})")
         print(f"     → Triggering PageIndex fallback")
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
         fallback = pageindex_search(query, top_k=top_k)
         if fallback:

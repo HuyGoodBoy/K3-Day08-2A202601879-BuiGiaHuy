@@ -157,6 +157,7 @@ def rerank_rrf(
         List of top_k candidates sorted by RRF score descending.
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
     rrf_scores = {}  # content -> score
     content_map = {}  # content -> full dict
 
@@ -167,6 +168,8 @@ def rerank_rrf(
             content_map[key] = item
 
 =======
+=======
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     rrf_scores: dict[str, float] = {}
     content_map: dict[str, dict] = {}
 
@@ -180,6 +183,9 @@ def rerank_rrf(
                 content_map[key] = item.copy()
 
     # Sort by RRF score
+<<<<<<< HEAD
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
+=======
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
     sorted_items = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
 
@@ -187,7 +193,11 @@ def rerank_rrf(
     for content, score in sorted_items[:top_k]:
         item = content_map[content].copy()
 <<<<<<< HEAD
+<<<<<<< HEAD
         item["score"] = score
+=======
+        item["score"] = round(score, 4)
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
 =======
         item["score"] = round(score, 4)
 >>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
@@ -227,9 +237,18 @@ def rerank(
         return rerank_cross_encoder(query, candidates, top_k)
     elif method == "mmr":
 <<<<<<< HEAD
+<<<<<<< HEAD
         raise NotImplementedError("Call rerank_mmr with query_embedding")
     elif method == "rrf":
         return candidates[:top_k]
+=======
+        if query_embedding is None:
+            raise ValueError("query_embedding required for MMR reranking")
+        return rerank_mmr(query_embedding, candidates, top_k)
+    elif method == "rrf":
+        # RRF cần nhiều ranked lists — wrap single list
+        return rerank_rrf([candidates], top_k=top_k, k=60)
+>>>>>>> 30f85021b640403ca93c504135d65cc95be0bd0d
 =======
         if query_embedding is None:
             raise ValueError("query_embedding required for MMR reranking")
